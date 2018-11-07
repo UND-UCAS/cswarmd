@@ -1,3 +1,0 @@
-[console_scripts]
-cswarmd = cswarmd.__main__:main
-
