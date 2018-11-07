@@ -1,0 +1,10 @@
+README.md
+setup.py
+cswarmd/__init__.py
+cswarmd/__main__.py
+cswarmd.egg-info/PKG-INFO
+cswarmd.egg-info/SOURCES.txt
+cswarmd.egg-info/dependency_links.txt
+cswarmd.egg-info/entry_points.txt
+cswarmd.egg-info/requires.txt
+cswarmd.egg-info/top_level.txt

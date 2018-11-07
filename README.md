@@ -1,4 +1,5 @@
-# crypt-swarm
+# CSWARMD
+## Cryptographic Swarm Deamon
 
 this repository will handle development of the encryption daemon.
 
