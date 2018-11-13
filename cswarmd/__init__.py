@@ -1076,8 +1076,8 @@ def randombytes_buf_deterministic(size, seed):
     Size can be up to 2^70 (256 GB).
     '''
 
-    if len(seed) != randombytes_SEEDBYTES:
-        raise ValueError('Invalid key seed')
+   # if len(seed) != randombytes_SEEDBYTES:
+   #     raise ValueError('Invalid key seed')
 
     size = int(size)
     buf = ctypes.create_string_buffer(size)
