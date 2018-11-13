@@ -9,6 +9,9 @@ dependencies: libnacl (python bindings), libsodim (actual library)
 
 known issues: as it currently stands, this code is quite fragile because there is no error checking whatsoever, so if something is not listening on the socket we intend to write to when we try to write to it, everyting dies in a bautiful fireball. BUT if the stars align and all is well in the world, it does all work as intended ... yay!
 
+general usage:
+	cswarmd --key-file {e||d} --in 127.0.0.1:29292 --out 127.0.0.1:92929
+
 next steps:
 	1. make the daemon modular so we can package this and start using command arguments - DONE
 
