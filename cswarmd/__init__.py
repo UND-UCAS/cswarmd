@@ -163,7 +163,7 @@ if not DOC_RUN:
     crypto_verify_32_BYTES = nacl.crypto_verify_32_bytes()
     crypto_verify_64_BYTES = nacl.crypto_verify_64_bytes()
     
-    randombytes_SEEDBYTES = nacl.randombytes_seedbytes()
+    #randombytes_SEEDBYTES = nacl.randombytes_seedbytes()
     crypto_kdf_PRIMITIVE = nacl.crypto_kdf_primitive()
     crypto_kdf_BYTES_MIN = nacl.crypto_kdf_bytes_min()
     crypto_kdf_BYTES_MAX = nacl.crypto_kdf_bytes_max()
