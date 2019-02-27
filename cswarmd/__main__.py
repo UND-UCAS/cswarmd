@@ -2,9 +2,11 @@ import socket
 import argparse
 import sys
 import os
+import asyncio
+from multiprocessing import Process
 from cswarmd import csock
 
-#might be removed:
+#hope to remove if possible:
 import libnacl
 from libnacl import secret
 
@@ -54,6 +56,14 @@ def handle_key_input(args):
             sys.exit(1)
     return libnacl.secret.SecretBox(key)
 
+def deamonize(box):
+    #super expiremental code to follow, expect breakages in really weird spots. sorry if I break anything important :)
+
+    #this is going to be hardcoded for a lil' bit until we can get some active creation / destruction logic
+    dsock = csock.SubscriberSock(inHost="127.0.0.1", inPort=4444, exHost="0.0.0.0", exPort=4445, outHost="127.0.0.1", outPort=4446, box=box)
+    dsock.start()
+
+
 def main():
     parser = argparse.ArgumentParser(description='general purpose sockets based cryptographic daemon', add_help=False)
 
@@ -61,10 +71,11 @@ def main():
     general_group.add_argument('-h', '--help', action='help', help='show this help message and exit')
     general_group.add_argument('-k', '--key-file', action='store', default=None, help='location of the keyfile for SecretBox')
     general_group.add_argument('--gen-key', action='store_true', default=None, help='generate a keyfile and then exit, requires --key-file')
+    general_group.add_argument('-d', '--deamon', action='store_true', default=None, help='EXPIREMENTAL asyncio/multiprocessing daemon mode')
 
 # not sure if sub-parsers is the best way to handle this, but it works for now and will build well into a propper daemon later on
 # so WIP? and end fate TBD
-    ioParsers = parser.add_subparsers(help='subcommand verbs to control the flow of data through the daemon', dest='command')
+    ioParsers = parser.add_subparsers(help='sub-commands for default encryption and decryption streams', dest='command')
 
     encryptParser = ioParsers.add_parser('e', help='take plain data stream and output encrypted stream')
     encryptParser.add_argument('--in', action='store', required=True, help='format = {host}:{port}', dest='eIn')
@@ -81,7 +92,9 @@ def main():
     if args.gen_key: # check to see if this is a simple --gen-key call, bail and send it to the handler if it is.
         handle_key_input(args)
 
-    if args.command:
+    if args.deamon:
+        deamonize(handle_key_input(args))
+    elif args.command:
         args.func(args)
     else:
         eprint("nothing to due, exiting...")
