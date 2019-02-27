@@ -58,15 +58,16 @@ class SubscriberSock:
         i = self.index
         self.index += 1
         self.internalSubscribers[i] = writer
-        while(not reader.at_eof()):
+        while(reader is not None):
             data = await reader.readline()
             loop.run_in_executor(self.executor, self.encrypt_and_send_external(data))
+        del self.internalSubscribers[i]
 
 
     async def external_conn_recieved(self, reader, writer):
         loop = asyncio.get_running_loop()
-        while(not reader.at_eof()):
-            cdata = await reader.read(-1)
+        while(reader is not None):
+            cdata = await reader.read(150)
             loop.run_in_executor(self.executor, self.decrypt_and_send_internal(cdata))
 
     # this can throw errors because of the timeout, they will be internally caught by the executor, we should at some point actually
