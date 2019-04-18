@@ -1,0 +1,8 @@
+[package]
+name = "plugins"
+version = "0.1.0"
+authors = ["Ben Metzger <bmetzger97@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+sodiumoxide = "*"
