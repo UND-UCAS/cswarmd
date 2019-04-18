@@ -98,7 +98,7 @@ class SubscriberSock:
         await asyncio.gather(internal_server_task, external_server_task)
         while(True):
             await asyncio.sleep(5)
-            print("still running!")
+            print(self.internalSubscribers)
         
         self.executor.shutdown(True)
         self.closed = True

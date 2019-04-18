@@ -59,7 +59,7 @@ def handle_key_input(args):
 def deamonize(box):
     #super expiremental code to follow, expect breakages in really weird spots. sorry if I break anything important :)
 
-    #this is going to be hardcoded for a lil' bit until we can get some active creation / destruction logic
+    #this is going to be hardcoded for a lil' bit until we can get some runtime creation / destruction logic
     dsock = csock.SubscriberSock(inHost="127.0.0.1", inPort=4444, exHost="0.0.0.0", exPort=4445, outHost="127.0.0.1", outPort=4446, box=box)
     dsock.start()
 
